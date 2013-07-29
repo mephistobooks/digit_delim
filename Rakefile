@@ -17,9 +17,9 @@ Jeweler::Tasks.new do |gem|
   gem.name = "digit_delim"
   gem.homepage = "http://github.com/mephistobooks/digit_delim"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "martin.route66.blues+atlassian@gmail.com"
+  gem.summary = %Q{A little num-string formatter, converter.}
+  gem.description = %Q{methods of num-string formatter, converter which extends String class}
+  gem.email = "martin.route66.blues+github@gmail.com"
   gem.authors = ["YAMAMOTO, Masayuki"]
   # dependencies defined in Gemfile
 end

@@ -9,20 +9,20 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["YAMAMOTO, Masayuki"]
-  s.date = "2013-07-28"
-  s.description = "TODO: longer description of your gem"
-  s.email = "martin.route66.blues+atlassian@gmail.com"
+  s.date = "2013-07-29"
+  s.description = "methods of num-string formatter, converter which extends String class"
+  s.email = "martin.route66.blues+github@gmail.com"
   s.extra_rdoc_files = [
-    "LICENSE.txt",
-    "README.rdoc"
+    "LICENSE.txt"
   ]
   s.files = [
     ".document",
     "Gemfile",
     "LICENSE.txt",
-    "README.rdoc",
     "Rakefile",
+    "ReadMe.md",
     "VERSION",
+    "digit_delim.gemspec",
     "lib/digit_delim.rb",
     "test/helper.rb",
     "test/test_digit_delim.rb"
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "2.0.3"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "A little num-string formatter, converter."
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

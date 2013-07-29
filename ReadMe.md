@@ -1,10 +1,10 @@
-## digit_delim ReadMe
+# digit_delim ReadMe
 
-### Description
+## Description
 
-provide the methods to separate a number with the delimiter for each 3 digits.
+provides the methods to separate a number with the delimiter for each 3 digits.
 
-### Lisence
-MIT
+## Lisence
+MIT Lisence.
 
-## End.
+# End.
