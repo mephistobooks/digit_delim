@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "digit_delim"
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["YAMAMOTO, Masayuki"]
-  s.date = "2013-07-29"
+  s.date = "2013-07-30"
   s.description = "methods of num-string formatter, converter which extends String class"
   s.email = "martin.route66.blues+github@gmail.com"
   s.extra_rdoc_files = [
