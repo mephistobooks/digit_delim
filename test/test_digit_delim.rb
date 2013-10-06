@@ -19,8 +19,11 @@ class TestDigitDelim < Test::Unit::TestCase
     assert_equal( "123", "123".w_dm )
     assert_equal( "23,456,789", "23456789".w_dm )
     assert_equal( "23,456,789.0123", "23456789.0123".w_dm )
-    assert_equal( "23,456,789.0123", "23456789.0123".w_dm(3) )
-    assert_equal( "2345,6789.0123", "23456789.0123".w_dm(4) )
+    assert_equal( "23,456,789.0123", "23456789.0123".w_dm(-1, 3) )
+    assert_equal( "2345,6789.0123", "23456789.0123".w_dm(-1, 4) )
+    
+    assert_equal( "23,456,789.01", "23456789.0123".w_dm(2) )
+    assert_equal( "2345,6789.01", "23456789.0123".w_dm(2,4) )
   end
 
   def test_w_dm_2

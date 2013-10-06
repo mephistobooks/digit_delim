@@ -14,12 +14,20 @@ class String
   # with delimiters: separate digit-string into each n-digits
   # with delimiters.
   # ==== Args
-  # n :: the number of digits length of separated string.
+  # adp :: length of digits after the decimal point.
+  #        (-1 if you want all of digits after the decimal point)
+  # n :: the number of digits length of each separated string.
   # ==== Return
   # separated string.
-  def w_dm(n=3); self.gsub( /(\d+)?(\.\d*)?/ ) { \
+  def w_dm(adp=-1, n=3); self.gsub( /(\d+)?(\.\d*)?/ ) { \
     s1="#{$1}".dup; s2="#{$2}".dup; \
-    s2="#{s2}00".slice(0,s2.size) if s2.size != 0
+    if s2.size != 0
+      if adp == -1
+        s2="#{s2}00".slice(0, s2.size)
+      else
+        s2="#{s2}00".slice(0, adp+1)
+      end
+    end
     s1.reverse.gsub( /\d{#{n}}(?=\d)/ ){|r| r+","}.reverse+s2 }; end
   alias to_f_old to_f
   
