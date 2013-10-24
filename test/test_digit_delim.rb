@@ -1,7 +1,7 @@
 #!/usr/local/bin/ruby -w
 
 # filename: test_digit_delim.rb
-#
+# To do this test case, ``rake test``.
 #
 #require "rubygems"
 #gem "test-unit"
@@ -9,7 +9,7 @@
 require "helper"
 require 'test/unit'
 
-
+# Testee.
 require "digit_delim"
 
 
@@ -37,21 +37,35 @@ class TestDigitDelim < Test::Unit::TestCase
     assert_equal( "12,345,678.01234", "12345678.01234".w_dm )
   end
 
+  def test_w_dm_3
+    t_pat = 23456789.0123
+
+    assert_equal( "2345,6789.01", t_pat.to_s.w_dm(2, 4) )
+    assert_equal( "2,3,4,5,6,7,8,9.01", t_pat.to_s.w_dm(2, 1) )
+  end
+
   def test_wo_dm
     assert_equal( "100000", "100,000".wo_dm )
     assert_equal( "100000.0123", "100,000.0123".wo_dm )
   end
 
   def test_to_wof
-    assert_equal( 100, "100,000".to_f )
-    assert_equal( 100000, "100,000".to_wof )
+    exp = 100_000
 
+    assert_not_equal( exp, "100,000".to_f )
     assert_equal( 100.0, "100,000".to_f )
+
+    assert_equal( exp, "100,000".to_wof )
+    assert_not_equal( exp.to_s, "100,000".to_wof.to_s )
+    assert_equal( exp.to_s + ".0", "100,000".to_wof.to_s )
+
   end
 
   def test_to_wof_stocks
     assert_equal( 1, "1株".to_wof )
     assert_equal( 1.05, "1.05株".to_wof )
+
+    assert_equal( 10, "10百万円".to_wof )
   end
 
   def test_to_fu

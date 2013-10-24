@@ -19,22 +19,26 @@ class String
   # n :: the number of digits length of each separated string.
   # ==== Return
   # separated string.
-  def w_dm(adp=-1, n=3); self.gsub( /(\d+)?(\.\d*)?/ ) { \
-    s1="#{$1}".dup; s2="#{$2}".dup; \
-    if s2.size != 0
-      if adp == -1
-        s2="#{s2}00".slice(0, s2.size)
-      else
-        s2="#{s2}00".slice(0, adp+1)
+  def w_dm(adp=-1, n=3)
+    self.gsub( /(\d+)?(\.\d*)?/ ) {
+      s1="#{$1}".dup; s2="#{$2}".dup;
+
+      if s2.size != 0
+        if adp == -1
+          s2="#{s2}00".slice(0, s2.size)
+        else
+          s2="#{s2}00".slice(0, adp+1)
+        end
       end
-    end
-    s1.reverse.gsub( /\d{#{n}}(?=\d)/ ){|r| r+","}.reverse+s2 }; end
+      s1.reverse.gsub( /\d{#{n}}(?=\d)/ ){|r| r+","}.reverse+s2
+    }
+  end
   alias to_f_old to_f
   
   # :method: wo_dm
   # without delimiters: remove the delimiters in digit-string.
   # ==== Args
-  #
+  # none.
   # ==== Return
   # digit-string without the delimiters.
   def wo_dm; self.gsub(/,/, ""); end
@@ -42,21 +46,30 @@ class String
   # :method: to_wof
   # remove delimiters in digit-string and convert it to Float.
   # ==== Args
-  #
+  # none.
   # ==== Return
-  # number in Float
+  # A number in Float.
   def to_wof; self.wo_dm.to_f_old; end
   
   # :method: to_fu
-  # convert string to float concerning with unit.
+  # convert digit-string into float concerning with unit.
   # ==== Args
-  #
+  # none.
   # ==== Return
-  # number in Float. if the original string has '%', the number is
-  # divided by 100.
+  # A number in Float. If the original string has '%', the number is
+  # divided by 100.0.
   def to_fu
     ret = self.to_wof
-    if self =~ /%$/ then ret /= 100.0 else ret end
+    # if self =~ /%$/ then ret /= 100.0 else ret end
+    case self
+    when /%$/
+      ret /= 100.0
+
+    else
+      ret
+
+    end
+
   end
 
 end
