@@ -17,6 +17,8 @@ class TestDigitDelim < Test::Unit::TestCase
 
   def test_w_dm_1
     assert_equal( "123", "123".w_dm )
+    assert_equal( "1,000", 1000.to_s.w_dm )
+
     assert_equal( "23,456,789", "23456789".w_dm )
     assert_equal( "23,456,789.0123", "23456789.0123".w_dm )
     assert_equal( "23,456,789.0123", "23456789.0123".w_dm(-1, 3) )
@@ -42,10 +44,20 @@ class TestDigitDelim < Test::Unit::TestCase
 
     assert_equal( "2345,6789.01", t_pat.to_s.w_dm(2, 4) )
     assert_equal( "2,3,4,5,6,7,8,9.01", t_pat.to_s.w_dm(2, 1) )
+
+    # with sign.
+    assert_equal( "+2,100", sprintf("%+d", 2_100).w_dm )
+    assert_equal( "-2,100", sprintf("%+d", -2_100).w_dm )
+    
+    # with sign, in percentage (符号付き, パーセント表記)
+    assert_equal( "-10.10%", sprintf("%+.2f%", -0.1010*100).w_dm )
+    assert_equal( "+10.10%", sprintf("%+.2f%", +0.1010*100).w_dm )
+
   end
 
   def test_wo_dm
     assert_equal( "100000", "100,000".wo_dm )
+    assert_equal( "100000", "100,000".wo_dm.to_i.to_s )
     assert_equal( "100000.0123", "100,000.0123".wo_dm )
   end
 
