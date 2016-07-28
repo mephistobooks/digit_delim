@@ -71,6 +71,8 @@ class TestDigitDelim < Test::Unit::TestCase
     assert_not_equal( exp.to_s, "100,000".to_wof.to_s )
     assert_equal( exp.to_s + ".0", "100,000".to_wof.to_s )
 
+    #
+    assert_equal( 1791.11, "1,791.11".to_wof )
   end
 
   def test_to_wof_stocks
