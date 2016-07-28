@@ -75,5 +75,6 @@ class String
 end
 
 
+require "kannum"
 
 #### endof filename: digit_delim.rb
