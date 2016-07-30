@@ -112,6 +112,10 @@ module KanNum
     tmp_str
   end
 
+  RE_NUM_O = "-.0-9"
+  RE_NUM = "[#{RE_NUM_O}]+"
+  RE_NONNUM = "[^#{RE_NUM_O} ]"
+
   # create parse tree for str:
   #   [ [[ num, Num, ... ], UnitNum], ... ]
   #
@@ -128,11 +132,14 @@ module KanNum
       if units.include?(c)
         tmp = tmp_ary.join
         # $stderr.puts "#{__method__} tmp: #{tmp}"
-        tmp = tmp.gsub(/([0-9]+)([^ 0-9])/, '\1 \2')
+        #tmp = tmp.gsub(/([0-9]+)([^ 0-9])/, '\1 \2')
+        tmp = tmp.gsub(/(#{RE_NUM})(#{RE_NONNUM})/, '\1 \2')
         # $stderr.puts "#{__method__} tmp: #{tmp}"
-        tmp = tmp.gsub(/([^ 0-9])([0-9]+)/, '\1 \2')
+        #tmp = tmp.gsub(/([^ 0-9])([0-9]+)/, '\1 \2')
+        tmp = tmp.gsub(/(#{RE_NONNUM})(#{RE_NUM})/, '\1 \2')
 
-        tmp = tmp.gsub(/([^ 0-9])([^ 0-9])/, '\1 \2')
+        #tmp = tmp.gsub(/([^ 0-9])([^ 0-9])/, '\1 \2')
+        tmp = tmp.gsub(/(#{RE_NONNUM})(#{RE_NONNUM})/, '\1 \2')
         # $stderr.puts "#{__method__} tmp: #{tmp}"
         tmp = tmp.split(/\s+/)
         # $stderr.puts "#{__method__} tmp: #{tmp}"
@@ -175,14 +182,16 @@ module KanNum
           # $stderr.puts "#{__method__} tmp_ary: #{tmp_ary}"
           a = 1
           b = N_倍数[tmp_ary[-1]]
-          a = tmp_ary[0].to_i if tmp_ary.size > 1
+          #a = tmp_ary[0].to_i if tmp_ary.size > 1
+          a = tmp_ary[0].to_f if tmp_ary.size > 1
 
           tmp += a*b
           tmp_ary = []
         end
       end
       # $stderr.puts "#{__method__} tmp_ary: #{tmp_ary}"
-      tmp += tmp_ary[0].to_i if tmp_ary.size != 0
+      #tmp += tmp_ary[0].to_i if tmp_ary.size != 0
+      tmp += tmp_ary[0].to_f if tmp_ary.size != 0
 
       tmp_u = N_単位数[u]
       if tmp_u.nil?
@@ -191,6 +200,11 @@ module KanNum
         ret += tmp * tmp_u
       end
 
+    end
+
+    if ret - ret.to_i > 0.0
+    else
+      ret = ret.to_i
     end
 
     ret
@@ -207,10 +221,70 @@ module KanNum
     ret
   end
 
+
+  #
+  #
+  #
+  def self.convert_helper( num )
+
+    tmp = nil
+    N_単位数.each_pair do |k,v|
+      # $stderr.puts "#{__method__} #{k} #{v}"
+      if num >= v
+        tmp ||= k
+        tmp = k if not(tmp.nil?) and v > N_単位数[tmp]
+        # $stderr.puts "#{__method__} tmp: #{tmp}"
+        next
+      else
+        break
+      end
+    end
+
+    tmp
+  end
+
+  def self.convert_phase0( num )
+    ret = []
+
+    tmp_num = num
+    while tmp = convert_helper(tmp_num)
+
+    u = N_単位数[tmp]
+    r = tmp_num/u
+    ret << [r.to_i, tmp]
+    tmp_num -= r*u
+    end
+
+    ret << tmp_num if tmp_num != 0
+    ret
+  end
+
+  def self.convert_phase1( ary )
+    ary.flatten.join
+  end
+
+  def self.num_to_str( num )
+
+    tmp = convert_phase0(num)
+    # $stderr.puts "{#{__method__}}result0: #{tmp}"
+    ret = convert_phase1(tmp)
+    # $stderr.puts "result1: #{ret}"
+
+    ret
+  end
+
 end
 
+
+#
+#
+#
 class String
   def str_to_num; KanNum.str_to_num self; end
+end
+
+class Fixnum
+  def num_to_str; KanNum.num_to_str self; end
 end
 
 
