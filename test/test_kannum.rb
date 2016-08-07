@@ -56,6 +56,10 @@ class TestKanNum < Test::Unit::TestCase
     exp = 1_3200
     assert_equal( exp, ret )
 
+    ret = "-3億900万".str_to_num
+    exp = -3_0900_0000
+    assert_equal( exp, ret )
+
     ret = @pattern_t1.str_to_num
     exp = @pattern_n1
     assert_equal( exp, ret )
@@ -131,6 +135,10 @@ class TestKanNum < Test::Unit::TestCase
     #
     ret = 1_3200.num_to_str
     exp = "1万3200"
+    assert_equal( exp, ret )
+
+    ret = -3_0900_0000.num_to_str
+    exp = "-3億900万"
     assert_equal( exp, ret )
 
     ret = @pattern_n1.num_to_str

@@ -27,6 +27,9 @@ module KanNum
     '７'=>7,
     '８'=>8,
     '９'=>9,
+
+    '−'=>'-',   # 全角マイナス => '-'
+    '-'=>'-',   # minus (dummy map)
   }
 
   N_数_ext = {
@@ -212,11 +215,19 @@ module KanNum
 
   def self.str_to_num( str )
 
+    minus_f = false
+    if str =~ /^-/
+      str = str.gsub(/^-/, '')
+      minus_f = true
+    end
+
     tmp = translate_phase0(str)
     # $stderr.puts "result0: #{tmp}"
     tmp = translate_phase1(tmp)
     # $stderr.puts "result1: #{tmp}"
     ret = translate_phase2(tmp)
+
+    ret *= -1 if minus_f
 
     ret
   end
@@ -265,10 +276,20 @@ module KanNum
 
   def self.num_to_str( num )
 
+    minus_f = false
+    if num < 0
+      num *= -1
+      minus_f = true
+    end
+
     tmp = convert_phase0(num)
     # $stderr.puts "{#{__method__}}result0: #{tmp}"
     ret = convert_phase1(tmp)
     # $stderr.puts "result1: #{ret}"
+
+    if minus_f
+      ret = "-"+ret
+    end
 
     ret
   end
