@@ -11,6 +11,7 @@ doc
 
 # bundler
 .bundle
+.ruby-version
 
 # jeweler generated
 pkg
