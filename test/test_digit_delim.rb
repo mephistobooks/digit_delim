@@ -50,8 +50,8 @@ class TestDigitDelim < Test::Unit::TestCase
     assert_equal( "-2,100", sprintf("%+d", -2_100).w_dm )
     
     # with sign, in percentage (符号付き, パーセント表記)
-    assert_equal( "-10.10%", sprintf("%+.2f%", -0.1010*100).w_dm )
-    assert_equal( "+10.10%", sprintf("%+.2f%", +0.1010*100).w_dm )
+    assert_equal( "-10.10%", sprintf("%+.2f%%", -0.1010*100).w_dm )
+    assert_equal( "+10.10%", sprintf("%+.2f%%", +0.1010*100).w_dm )
 
   end
 
