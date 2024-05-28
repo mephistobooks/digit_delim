@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["YAMAMOTO, Masayuki".freeze]
-  s.date = "2023-02-12"
+  s.date = "2024-05-28"
   s.description = "methods of num-string formatter, converter which extends String class".freeze
   s.email = "martin.route66.blues+github@gmail.com".freeze
   s.extra_rdoc_files = [
